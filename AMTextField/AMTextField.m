@@ -18,49 +18,89 @@
 
 @implementation AMTextField
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    [self loadDefaults];
+    return self;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    [self loadDefaults];
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    [self loadDefaults];
+    return self;
+}
+
+- (void)loadDefaults
+{
+    [self setCollapsed:YES];
+    
+    _placeholderOffset = (CGPoint){ 10, 3 };
+    _labelFontColor = [UIColor blackColor];
+    _placeholderFontColor = [UIColor lightGrayColor];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(expandLabelIfNeeded)
+                                                 name:UITextFieldTextDidBeginEditingNotification
+                                               object:self];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(collapseLabelIfNeeded)
+                                                 name:UITextFieldTextDidEndEditingNotification
+                                               object:self];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textFieldDidChange)
+                                                 name:UITextFieldTextDidChangeNotification
+                                               object:self];
+}
+
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     
     self.clipsToBounds = NO;
     
-    [self setCollapsed:YES];
-    
-    // TODO: move this out of the way
-    UIFont *font = [UIFont systemFontOfSize:14];
-
-    CGPoint offset = (CGPoint){ 10, 3 };
-    CGRect bounds = self.bounds;
-    bounds.size = (CGSize){ bounds.size.width - offset.x, font.pointSize + offset.y };
-    self.placeholderLayer.bounds = bounds;
     self.placeholderLayer.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+    [self updateFont];
     [self.layer addSublayer:self.placeholderLayer];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(textFieldDidBeginEditing)
-                                                 name:UITextFieldTextDidBeginEditingNotification
-                                               object:self];
+}
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(textFieldDidEndEditing)
-                                                 name:UITextFieldTextDidEndEditingNotification
-                                               object:self];
+- (void)setFont:(UIFont *)font
+{
+    [super setFont:font];
+    [self updateFont];
+}
+
+- (void)setText:(NSString *)text
+{
+    [super setText:text];
+    [self textFieldDidChange];
+}
+
+- (void)updateFont
+{
+    self.placeholderLayer.font = (__bridge CFTypeRef)(self.font.fontName);
+    self.placeholderLayer.fontSize = self.font.pointSize;
+    CGRect bounds = self.bounds;
+    bounds.size = (CGSize){ bounds.size.width - self.placeholderOffset.x, self.font.pointSize + self.placeholderOffset.y };
+    self.placeholderLayer.bounds = bounds;
 }
 
 - (CATextLayer *)placeholderLayer
 {
     if (!_placeholderLayer) {
-        
-        // TODO: move this out of the way
-        UIFont *font = [UIFont systemFontOfSize:14];
-        
         _placeholderLayer = [[CATextLayer alloc] init];
-        _placeholderLayer.font = (__bridge CFTypeRef)(font.fontName);
-        _placeholderLayer.fontSize = font.pointSize;
-        _placeholderLayer.foregroundColor = [UIColor blackColor].CGColor;
-        
+        _placeholderLayer.foregroundColor = self.placeholderFontColor.CGColor;
         _placeholderLayer.wrapped = NO;
-        
         _placeholderLayer.contentsScale = [[UIScreen mainScreen] scale];
         _placeholderLayer.zPosition = 2.0;
     }
@@ -73,20 +113,46 @@
     self.placeholderLayer.string = placeholder;
 }
 
-- (void)textFieldDidBeginEditing
+- (void)expandLabelIfNeeded
 {
     if (self.isCollapsed) {
         [self bounceAnimateFrom:self.frame.size.height / 2 to:-self.frame.size.height / 2];
+        [self animateToColor:self.labelFontColor];
         [self setCollapsed:NO];
     }
 }
 
-- (void)textFieldDidEndEditing
+- (void)collapseLabelIfNeeded
 {
     if (self.text.length == 0 && !self.isCollapsed) {
         [self bounceAnimateFrom:-self.frame.size.height / 2 to:self.frame.size.height / 2];
+        [self animateToColor:self.placeholderFontColor];
         [self setCollapsed:YES];
     }
+}
+
+- (void)textFieldDidChange
+{
+    if (!self.isFirstResponder) {
+        [self expandLabelIfNeeded];
+        [self collapseLabelIfNeeded];
+    }
+}
+
+#pragma mark - Animations
+
+- (void)animateToColor:(UIColor *)color
+{
+    CABasicAnimation *animation = [CABasicAnimation animation];
+    animation.keyPath = @"foregroundColor";
+    animation.duration = 0.3;
+    animation.fillMode = kCAFillModeForwards;
+    animation.fromValue = (id)self.placeholderLayer.foregroundColor;
+    animation.toValue = (id)color.CGColor;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    animation.removedOnCompletion = NO;
+    [self.placeholderLayer setForegroundColor:color.CGColor];
+    [self.placeholderLayer addAnimation:animation forKey:@"color"];
 }
 
 - (void)bounceAnimateFrom:(CGFloat)from to:(CGFloat)to

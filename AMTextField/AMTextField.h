@@ -10,4 +10,8 @@
 
 @interface AMTextField : UITextField
 
+@property (nonatomic, assign) CGPoint placeholderOffset UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *labelFontColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *placeholderFontColor UI_APPEARANCE_SELECTOR;
+
 @end

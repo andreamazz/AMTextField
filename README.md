@@ -6,7 +6,6 @@ The placeholder text becomes the field's label, as seen in [CBTextFieldView](htt
 #TODO
 
 - Everything :)
-- Add properties
 - Add styles
 - Add active animation
 - Add validation styles
