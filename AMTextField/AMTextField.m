@@ -48,12 +48,12 @@
     _placeholderFontColor = [UIColor lightGrayColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(expandLabelIfNeeded)
+                                             selector:@selector(textFieldDidBeginEditing)
                                                  name:UITextFieldTextDidBeginEditingNotification
                                                object:self];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(collapseLabelIfNeeded)
+                                             selector:@selector(textFieldDidEndEditing)
                                                  name:UITextFieldTextDidEndEditingNotification
                                                object:self];
 
@@ -71,7 +71,13 @@
     
     self.placeholderLayer.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     [self updateFont];
+    
     [self.layer addSublayer:self.placeholderLayer];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
 }
 
 - (void)setFont:(UIFont *)font
@@ -84,6 +90,11 @@
 {
     [super setText:text];
     [self textFieldDidChange];
+}
+
+- (void)setTintColor:(UIColor *)tintColor
+{
+    [super setTintColor:tintColor];
 }
 
 - (void)updateFont
@@ -111,6 +122,16 @@
 {
     self.placeholderString = placeholder;
     self.placeholderLayer.string = placeholder;
+}
+
+- (void)textFieldDidBeginEditing
+{
+    [self expandLabelIfNeeded];
+}
+
+- (void)textFieldDidEndEditing
+{
+    [self collapseLabelIfNeeded];
 }
 
 - (void)expandLabelIfNeeded
