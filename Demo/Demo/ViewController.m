@@ -21,7 +21,9 @@
 {
     [super viewDidLoad];
     
-    self.textField.placeholder = @"Username";
+    self.textField.placeholder = @"Email";
+    self.textField.validationType=EmailValidation;
+    [self.textField shake:10  withDelta:5.f andSpeed:0.04 shakeDirection:ShakeDirectionHorizontal];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
