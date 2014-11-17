@@ -9,9 +9,10 @@
 #import "ViewController.h"
 #import "AMTextField.h"
 
-@interface ViewController ()
+@interface ViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet AMTextField *textField;
+
 
 @end
 
@@ -21,7 +22,10 @@
 {
     [super viewDidLoad];
     
-    self.textField.placeholder = @"Username";
+    self.textField.placeholder = @"Email";
+    self.textField.validationType=EmailValidation;
+    [self.textField shake:10  withDelta:5.f andSpeed:0.04 shakeDirection:ShakeDirectionHorizontal];
+    
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -32,4 +36,12 @@
     }
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[UITextField class]]) {
+            [obj resignFirstResponder];
+        }
+    }];
+}
 @end
