@@ -59,6 +59,29 @@
     return NO;
 }
 
+/*
+ 要分台湾手机号还是大陆手机号，需要一组正则表达式根据情况判断
+ ⑴台湾手机10位数，皆以09起头，拨打台湾手机，先拨台湾的国际区码00886，接着拨去起头0的手机号码，譬如0960XXXXXX，则拨00886-960XXXXXX
+ ⑵台湾座机号码，县市区码2-3位数（以0起头），电话号码6-8位数，拨打台湾座机，先拨台湾的国际区码00886，接着拨去起头0的县市区码，最后拨电话号码，
+ 譬如台北市电话02-8780XXXX，则拨00886-2-8780XXXX，另一例是台东县电话，089-345XXX，则拨00886-89-345XXX
+ */
+
++ (BOOL)validateMobile:(NSString *)mobile
+{
+    if([NSString isNullOrEmpty:mobile])
+        return FALSE;
+    
+    if(mobile.length < 10) return FALSE;
+    
+    //手机号以13， 15，18开头，八个 \d 数字字符
+    //    NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$";
+    //    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
+    //    return [phoneTest evaluateWithObject:mobile];
+    
+    return TRUE;
+}
+
+
 
 - (BOOL)hasSubString:(NSString *)string
 {
@@ -98,27 +121,7 @@
 	return result;
 }
 
-/*
- 要分台湾手机号还是大陆手机号，需要一组正则表达式根据情况判断
- ⑴台湾手机10位数，皆以09起头，拨打台湾手机，先拨台湾的国际区码00886，接着拨去起头0的手机号码，譬如0960XXXXXX，则拨00886-960XXXXXX
- ⑵台湾座机号码，县市区码2-3位数（以0起头），电话号码6-8位数，拨打台湾座机，先拨台湾的国际区码00886，接着拨去起头0的县市区码，最后拨电话号码，
- 譬如台北市电话02-8780XXXX，则拨00886-2-8780XXXX，另一例是台东县电话，089-345XXX，则拨00886-89-345XXX
- */
 
-+ (BOOL)validateMobile:(NSString *)mobile
-{
-    if([NSString isNullOrEmpty:mobile])
-        return FALSE;
-    
-    if(mobile.length < 10) return FALSE;
-    
-    //手机号以13， 15，18开头，八个 \d 数字字符
-    //    NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$";
-    //    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
-    //    return [phoneTest evaluateWithObject:mobile];
-    
-    return TRUE;
-}
 
 
 ////////////

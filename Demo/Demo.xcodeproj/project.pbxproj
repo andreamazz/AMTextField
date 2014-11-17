@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D29284B1A17869C0031B97C /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D29284A1A17869C0031B97C /* AMPopTip.m */; };
-		3D29284F1A17870E0031B97C /* UIView+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D29284E1A17870E0031B97C /* UIView+Shake.m */; };
-		3D2928531A1788330031B97C /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2928521A1788330031B97C /* NSString+Utils.m */; };
 		65839B5C19B361F20043FF8F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65839B5B19B361F20043FF8F /* main.m */; };
 		65839B5F19B361F20043FF8F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65839B5E19B361F20043FF8F /* AppDelegate.m */; };
 		65839B6219B361F20043FF8F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65839B6119B361F20043FF8F /* ViewController.m */; };
@@ -30,12 +27,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3D2928491A17869C0031B97C /* AMPopTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPopTip.h; sourceTree = "<group>"; };
-		3D29284A1A17869C0031B97C /* AMPopTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPopTip.m; sourceTree = "<group>"; };
-		3D29284D1A17870E0031B97C /* UIView+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shake.h"; sourceTree = "<group>"; };
-		3D29284E1A17870E0031B97C /* UIView+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shake.m"; sourceTree = "<group>"; };
-		3D2928511A1788330031B97C /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
-		3D2928521A1788330031B97C /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 		65839B5619B361F20043FF8F /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65839B5A19B361F20043FF8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65839B5B19B361F20043FF8F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -70,33 +61,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3D2928481A17869C0031B97C /* AMPopTip */ = {
-			isa = PBXGroup;
-			children = (
-				3D2928491A17869C0031B97C /* AMPopTip.h */,
-				3D29284A1A17869C0031B97C /* AMPopTip.m */,
-			);
-			path = AMPopTip;
-			sourceTree = "<group>";
-		};
-		3D29284C1A17870E0031B97C /* UIView-Shake */ = {
-			isa = PBXGroup;
-			children = (
-				3D29284D1A17870E0031B97C /* UIView+Shake.h */,
-				3D29284E1A17870E0031B97C /* UIView+Shake.m */,
-			);
-			path = "UIView-Shake";
-			sourceTree = "<group>";
-		};
-		3D2928501A1788330031B97C /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				3D2928511A1788330031B97C /* NSString+Utils.h */,
-				3D2928521A1788330031B97C /* NSString+Utils.m */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		65839B4D19B361F20043FF8F = {
 			isa = PBXGroup;
 			children = (
@@ -118,9 +82,6 @@
 		65839B5819B361F20043FF8F /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				3D2928501A1788330031B97C /* Utils */,
-				3D29284C1A17870E0031B97C /* UIView-Shake */,
-				3D2928481A17869C0031B97C /* AMPopTip */,
 				65A8881819B36211001E078A /* AMTextField */,
 				65839B5D19B361F20043FF8F /* AppDelegate.h */,
 				65839B5E19B361F20043FF8F /* AppDelegate.m */,
@@ -270,11 +231,8 @@
 			files = (
 				65839B6219B361F20043FF8F /* ViewController.m in Sources */,
 				65839B5F19B361F20043FF8F /* AppDelegate.m in Sources */,
-				3D29284B1A17869C0031B97C /* AMPopTip.m in Sources */,
-				3D29284F1A17870E0031B97C /* UIView+Shake.m in Sources */,
 				65839B5C19B361F20043FF8F /* main.m in Sources */,
 				65A8881B19B36211001E078A /* AMTextField.m in Sources */,
-				3D2928531A1788330031B97C /* NSString+Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
