@@ -21,7 +21,7 @@
 {
     [super viewDidLoad];
     
-    self.textField.placeholder = @"Username";
+//    self.textField.placeholder = @"Username";
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event

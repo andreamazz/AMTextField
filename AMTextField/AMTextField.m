@@ -71,13 +71,13 @@
     
     self.placeholderLayer.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     [self updateFont];
-    
-    [self.layer addSublayer:self.placeholderLayer];
-}
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
+    self.placeholderString = self.placeholder;
+    self.placeholderLayer.string = self.placeholder;
+
+    self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName: [UIColor clearColor]}];
+
+    [self.layer addSublayer:self.placeholderLayer];
 }
 
 - (void)setFont:(UIFont *)font
