@@ -7,6 +7,7 @@
 //
 
 #import "AMTextField.h"
+@import CoreText;
 
 @interface AMTextField ()
 
@@ -99,7 +100,7 @@
 
 - (void)updateFont
 {
-    self.placeholderLayer.font = (__bridge CFTypeRef)(self.font.fontName);
+    self.placeholderLayer.font = CTFontCreateWithFontDescriptor((__bridge CTFontDescriptorRef)self.font.fontDescriptor, self.font.pointSize, nil);
     self.placeholderLayer.fontSize = self.font.pointSize;
     CGRect bounds = self.bounds;
     bounds.size = (CGSize){ bounds.size.width - self.placeholderOffset.x, self.font.pointSize + self.placeholderOffset.y };
